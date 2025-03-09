@@ -147,6 +147,9 @@ func (c *Client) runWithJSON(ctx context.Context, req *Request, resp interface{}
 		// return first error
 		return gr.Errors[0]
 	}
+	if res.StatusCode != http.StatusOK {
+		return fmt.Errorf("received non-200 response: %d", res.StatusCode)
+	}
 	return nil
 }
 
@@ -253,7 +256,7 @@ func ImmediatelyCloseReqBody() ClientOption {
 type ClientOption func(*Client)
 
 type graphErr struct {
-	Message string
+	Message string `json:"message"`
 }
 
 func (e graphErr) Error() string {
@@ -263,7 +266,7 @@ func (e graphErr) Error() string {
 type graphResponse struct {
 	Data   interface{}
 	Errors []graphErr
-	Message string // from github api response
+	Message string `json:"message"` // from github api response
 }
 
 // Request is a GraphQL request.
