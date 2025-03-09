@@ -218,7 +218,7 @@ func (c *Client) runWithPostFields(ctx context.Context, req *Request, resp inter
 		// return first error
 		return gr.Errors[0]
 	}
-	if res.StatusCode >= 300 {
+	if res.StatusCode != http.StatusOK {
 		return fmt.Errorf("received non-200 response: %d", res.StatusCode)
 	}
 	return nil
