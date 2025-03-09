@@ -218,6 +218,9 @@ func (c *Client) runWithPostFields(ctx context.Context, req *Request, resp inter
 		// return first error
 		return gr.Errors[0]
 	}
+	if res.StatusCode >= 300 {
+		return fmt.Errorf("received non-200 response: %d", res.StatusCode)
+	}
 	return nil
 }
 
@@ -260,6 +263,7 @@ func (e graphErr) Error() string {
 type graphResponse struct {
 	Data   interface{}
 	Errors []graphErr
+	Message string // from github api response
 }
 
 // Request is a GraphQL request.

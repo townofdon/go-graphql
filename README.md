@@ -13,8 +13,12 @@ Low-level GraphQL client for Go.
 Make sure you have a working Go environment. To install graphql, simply run:
 
 ```
-$ go get github.com/machinebox/graphql
+$ go get github.com/townofdon/go-graphql
 ```
+
+## Fork Notes
+
+- Automatically responds with error when receiving a non-2xx response
 
 ## Usage
 
